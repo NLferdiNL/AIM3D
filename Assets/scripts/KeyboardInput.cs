@@ -20,7 +20,6 @@ public class KeyboardInput : MonoBehaviour {
 
         // Check keystates.
         keyDown();
-        keyUp();
 
         // Then send these to the player.
         player.move(forward, right, backward, left);
@@ -43,68 +42,22 @@ public class KeyboardInput : MonoBehaviour {
 
     //Check for keys pressed.
     void keyDown() {
-        // I used the axis not for velocity but instead just check if they're not 0 then above or below.
-        float hor = Input.GetAxis("Horizontal");
-        float ver = Input.GetAxis("Vertical");
 
-        // If it's not 0 check if it's above or below and edit movement booleans accordingly.
-        if (hor != 0) {
-            if (hor > 0) {
-                right = true;
-            } else {
-                //left = true;
-            }
-        }
-
-        if (ver != 0) {
-            if (ver > 0) {
-                forward = true;
-            } else {
-                backward = true;
-            }
-        }
+        // Get all movement booleans.
+        left = Input.GetKey(KeyCode.A);
+        right = Input.GetKey(KeyCode.D);
+        forward = Input.GetKey(KeyCode.W);
+        backward = Input.GetKey(KeyCode.S);
 
         // Check if the user is tapping/holding space, will make the player jump repeatedly if held.
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            jump = true;
-        }
+        jump = Input.GetKey(KeyCode.Space);
 
         // Let the player move faster!
-        if (Input.GetKeyDown(KeyCode.LeftShift)) {
-            sprint = true;
-        }
+        sprint = Input.GetKeyDown(KeyCode.LeftShift);
 
         // To toggle mouse mode.
         if (Input.GetKeyDown(KeyCode.Escape)) {
             toggleMouseLock();
-        }
-    }
-
-    void keyUp() {
-        
-        // Here I use these to check if they are 0.
-        float hor = Input.GetAxis("Horizontal");
-        float ver = Input.GetAxis("Vertical");
-
-        // Check if hor and ver are 0 and edit movement booleans accordingly.
-        if (hor == 0) {
-            right = false;
-            left = false;
-        }
-
-        if (ver == 0) {
-            forward = false;
-            backward = false;
-        }
-
-        // Make sure the player won't be stuck jumping infinitly.
-        if (Input.GetKeyUp(KeyCode.Space)) {
-            jump = false;
-        }
-
-        // Make sure the sprint isn't always on.
-        if (Input.GetKeyUp(KeyCode.LeftShift)) {
-            sprint = false;
         }
     }
 
