@@ -16,6 +16,9 @@ public class GrowPhase : Phase {
     // The ParticleSystem Components from particleGroup.
     private ParticleSystem[] particles;
 
+    [SerializeField]
+    private float particleEmissionRate;
+
     private void Start() {
         // Need this to obtain the attention and meditation from the Neurosky.  
         neuroData = GameObject.Find("Globals").GetComponent<NeuroData>();
@@ -31,6 +34,7 @@ public class GrowPhase : Phase {
         foreach(ParticleSystem particle in particles) {
             // Play all the particle systems.
             particle.Play();
+            particleEmissionRate = particle.emissionRate;
         }
     }
 
@@ -91,7 +95,7 @@ public class GrowPhase : Phase {
 
             //Edit particle emission based on attention.
             foreach (ParticleSystem particle in particles) {
-                particle.emissionRate = (40 / 10) * Mathf.FloorToInt(attention / 10);
+                particle.emissionRate = (particleEmissionRate / 10) * Mathf.FloorToInt(attention / 10);
                 if (particle.emissionRate <= 0) {
                     particle.emissionRate = 1;
                 }
