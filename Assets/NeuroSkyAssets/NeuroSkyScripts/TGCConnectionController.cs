@@ -51,7 +51,7 @@ public class TGCConnectionController : MonoBehaviour {
 		    byte[] myWriteBuffer = Encoding.ASCII.GetBytes(@"{""enableRawOutput"": true, ""format"": ""Json""}");
 		    stream.Write(myWriteBuffer, 0, myWriteBuffer.Length);
 			
-			InvokeRepeating("ParseData",0.1f,0.1f);
+			InvokeRepeating("ParseData",0.1f,0.1f); //This line might be the cause of lagg, but changing the interval breaks it.
 		}
 	}
 	
@@ -121,8 +121,8 @@ public class TGCConnectionController : MonoBehaviour {
 	          }
 	        }
 	      }
-	      catch(IOException){ /*Debug.Log("IOException " + e);*/ }
-	      catch(System.Exception){ /*Debug.Log("Exception " + e);*/ }
+	      catch(IOException){ Debug.Log("IOException "); } //Either these two lines cause lagg.
+	      catch(System.Exception){ Debug.Log("Exception "); }
 	    }		
 		
 	}// end ParseData
